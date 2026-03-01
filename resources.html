@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resources — Lost Worlds Institute</title>
+<link rel="stylesheet" href="css/style.css" />
+<style>
+.resources-hero {
+  min-height: 55vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0d1408 0%, #120f0b 60%, #1a1510 100%);
+}
+
+.resources-hero-glow {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 55%;
+  background: radial-gradient(ellipse at 80% 50%, rgba(45,74,53,0.2) 0%, transparent 65%);
+}
+
+/* TABS */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.tab-btn {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  background: none;
+  border: none;
+  padding: 1rem 1.75rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--transition);
+}
+
+.tab-btn:hover { color: var(--parchment); }
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* LANGUAGE PROFILES */
+.lang-profiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.lang-profile {
+  border: 1px solid var(--border);
+  padding: 0;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.lang-profile:hover { border-color: var(--gold); }
+
+.lang-profile-header {
+  padding: 1.75rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.lang-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--parchment);
+  letter-spacing: 0.08em;
+}
+
+.lang-family {
+  font-family: var(--font-text);
+  font-size: 0.8rem;
+  color: var(--ash);
+  margin-top: 0.25rem;
+}
+
+.lang-status {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.status-critically { color: #e07a5f; border-color: rgba(224,122,95,0.4); }
+.status-endangered { color: var(--gold); border-color: var(--border); }
+.status-vulnerable { color: #7ec8a0; border-color: rgba(126,200,160,0.4); }
+.status-extinct    { color: var(--rust); border-color: rgba(139,58,42,0.4); }
+
+.lang-profile-body {
+  padding: 1.5rem 2rem;
+}
+
+.lang-profile-body p {
+  font-size: 0.9rem;
+  color: var(--ash);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.lang-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(200,164,90,0.1);
+}
+
+.lang-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.lang-meta-key {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.lang-meta-val {
+  font-family: var(--font-text);
+  font-size: 0.85rem;
+  color: var(--light-ash);
+}
+
+/* GUIDES */
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.guide-card {
+  border: 1px solid var(--border);
+  padding: 2rem;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.guide-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+
+.guide-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.guide-card h3 { color: var(--parchment); font-size: 1rem; margin-bottom: 0.5rem; }
+.guide-card p { color: var(--ash); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.7; }
+
+/* LINKS */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.link-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border: 1px solid var(--border);
+  background: rgba(245,237,224,0.02);
+  transition: background var(--transition), border-color var(--transition);
+  text-decoration: none;
+}
+.link-item:hover {
+  background: rgba(200,164,90,0.05);
+  border-color: var(--gold);
+}
+
+.link-item-body h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--parchment);
+  margin-bottom: 0.25rem;
+  font-weight: 400;
+}
+.link-item-body p {
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.link-arrow {
+  font-size: 1.2rem;
+  color: var(--gold);
+  transition: transform var(--transition);
+}
+.link-item:hover .link-arrow { transform: translateX(4px); }
+
+@media (max-width: 1000px) {
+  .lang-profiles { grid-template-columns: 1fr; }
+  .guides-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 700px) {
+  .guides-grid { grid-template-columns: 1fr; }
+  .tab-bar { overflow-x: auto; }
+  .resources-hero { padding: 0 1.5rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-symbol">LWI</div>
+    <span class="nav-logo-text">Lost Worlds Institute</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="mission.html">Mission</a></li>
+    <li><a href="resources.html" class="active">Resources</a></li>
+    <li><a href="impact.html">Impact</a></li>
+    <li><a href="https://www.lostworldsmag.com" target="_blank" class="nav-magazine">Magazine ↗</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main class="page-main">
+
+  <section class="resources-hero">
+    <div class="resources-hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Knowledge Base</p>
+      <h1>Languages,<br>Guides &<br><span style="color:var(--gold);">Resources</span></h1>
+      <p class="hero-desc">Explore language profiles, research guides, and curated resources for learning about and contributing to language preservation.</p>
+    </div>
+  </section>
+
+  <div class="section-wide" style="background:var(--ink);">
+    <div class="section">
+
+      <!-- TABS -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="tab-languages">Language Profiles</button>
+        <button class="tab-btn" data-tab="tab-guides">Research Guides</button>
+        <button class="tab-btn" data-tab="tab-links">External Resources</button>
+      </div>
+
+      <!-- LANGUAGE PROFILES -->
+      <div id="tab-languages" class="tab-panel active">
+        <div class="lang-profiles">
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Chamicuro</div>
+                <div class="lang-family">Chamicuran • Peru</div>
+              </div>
+              <span class="lang-status status-critically">Critically Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>One of the most endangered languages in the Americas, Chamicuro is spoken by a tiny community in the Peruvian Amazon. It is a language isolate within the broader Amazonian linguistic landscape, possessing unusual phonological features and a rich oral tradition.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Peru (Amazon)</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~8</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Latin (modern)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Taa (ǃXóõ)</div>
+                <div class="lang-family">Tuu • Botswana / Namibia</div>
+              </div>
+              <span class="lang-status status-endangered">Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Taa is renowned for having one of the largest phoneme inventories of any known language, with over 100 sounds including an extraordinary range of click consonants. Spoken by the ǀXam and related San people, it represents a linguistic treasure of unparalleled complexity.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Botswana, Namibia</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~2,500</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Latin + click notation</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Yuchi</div>
+                <div class="lang-family">Language Isolate • Oklahoma, USA</div>
+              </div>
+              <span class="lang-status status-critically">Critically Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Yuchi is a language isolate spoken only by members of the Yuchi Tribe in Oklahoma. With fewer than 5 fluent native speakers remaining, all elderly, Yuchi is among the most urgent preservation cases in North America. Active revitalization efforts are underway.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Oklahoma, USA</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">&lt;5 fluent</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Family</span><span class="lang-meta-val">Isolate</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Warlpiri</div>
+                <div class="lang-family">Ngarrkic • Northern Australia</div>
+              </div>
+              <span class="lang-status status-vulnerable">Vulnerable</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Warlpiri is one of the larger Australian Aboriginal languages, known for its complex system of grammatical cases and a notable phenomenon of children creating a new mixed language called "Light Warlpiri." Despite having several thousand speakers, it faces pressures from English dominance.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Northern Territory, AUS</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~2,000–3,000</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Latin</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Manx</div>
+                <div class="lang-family">Celtic (Goidelic) • Isle of Man</div>
+              </div>
+              <span class="lang-status status-vulnerable">Revitalizing</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Manx is a Celtic language that became extinct in 1974 with the death of its last native speaker, Ned Maddrell — and was then revived. Today, a small but growing community speaks Manx, with immersion schooling programs producing new generations of speakers. A remarkable revitalization success story.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Isle of Man</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~2,000+</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Status</span><span class="lang-meta-val">Revived</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Western Aramaic</div>
+                <div class="lang-family">Semitic • Syria</div>
+              </div>
+              <span class="lang-status status-critically">Critically Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Western Aramaic is the ancient language once spoken across the Near East — and the language Jesus of Nazareth is believed to have spoken. Today it survives only in the Syrian village of Maaloula, where a small community of speakers keeps alive one of history's most consequential languages.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Syria (Maaloula)</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~8,000</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Aramaic / Syriac</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Akkadian</div>
+                <div class="lang-family">Semitic • Ancient Mesopotamia</div>
+              </div>
+              <span class="lang-status status-extinct">Extinct</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Akkadian was the lingua franca of the ancient Near East for over 1,500 years — the language of Hammurabi's Code, the Epic of Gilgamesh, and diplomatic correspondence across empires. Written in cuneiform on clay tablets, it is preserved in hundreds of thousands of surviving texts.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Mesopotamia (Iraq)</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Died</span><span class="lang-meta-val">~100 CE</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Cuneiform</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Cherokee</div>
+                <div class="lang-family">Iroquoian • North America</div>
+              </div>
+              <span class="lang-status status-endangered">Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Cherokee is unique in that it has its own syllabary, invented by Sequoyah in 1820 — one of the few times in recorded history that an individual created a complete writing system. Despite having a tribal enrollment of 370,000+, only a few thousand are fluent speakers today.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Oklahoma / NC, USA</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~2,000 fluent</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Cherokee syllabary (ꮃ)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Coptic</div>
+                <div class="lang-family">Afro-Asiatic • Egypt</div>
+              </div>
+              <span class="lang-status status-extinct">Liturgical Only</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Coptic is the final phase of the ancient Egyptian language — the tongue of the pharaohs, spoken through millennia. While no longer spoken as a daily language, it survives in the Coptic Orthodox Church as a liturgical language, maintained by millions of Egyptian Christians.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Egypt</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Status</span><span class="lang-meta-val">Liturgical</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Script</span><span class="lang-meta-val">Coptic alphabet</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Wampanoag</div>
+                <div class="lang-family">Algonquian • Massachusetts, USA</div>
+              </div>
+              <span class="lang-status status-critically">Revitalizing</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Wampanoag (Wôpanâak) had no living speakers for over 100 years. Linguist Jessie Little Doe Baird led a remarkable revival effort, reconstructing the language from colonial-era manuscripts. Today, her daughter is among the first new native speakers in generations — a story of extraordinary dedication.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Massachusetts, USA</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Status</span><span class="lang-meta-val">Revived (2+ speakers)</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Family</span><span class="lang-meta-val">Algonquian</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Serrano</div>
+                <div class="lang-family">Uto-Aztecan • California, USA</div>
+              </div>
+              <span class="lang-status status-critically">Critically Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Serrano is a Uto-Aztecan language of the San Bernardino Mountains, spoken by the Serrano people of inland Southern California. With very few remaining speakers, the Serrano people are actively working on documentation and revitalization efforts to keep their language alive.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">California, USA</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">&lt;10</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Family</span><span class="lang-meta-val">Uto-Aztecan</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lang-profile fade-up delay-1">
+            <div class="lang-profile-header">
+              <div>
+                <div class="lang-name">Muscogee (Creek)</div>
+                <div class="lang-family">Muskogean • Oklahoma, USA</div>
+              </div>
+              <span class="lang-status status-endangered">Endangered</span>
+            </div>
+            <div class="lang-profile-body">
+              <p>Muscogee is the language of the Muscogee (Creek) Nation, one of the Five Civilized Tribes. It has a rich oral tradition, polysynthetic grammar, and an active community working on its preservation. The Muscogee Nation has invested in language programs, immersion schools, and digital resources.</p>
+              <div class="lang-meta-row">
+                <div class="lang-meta-item"><span class="lang-meta-key">Region</span><span class="lang-meta-val">Oklahoma, USA</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Speakers</span><span class="lang-meta-val">~5,000</span></div>
+                <div class="lang-meta-item"><span class="lang-meta-key">Family</span><span class="lang-meta-val">Muskogean</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESEARCH GUIDES -->
+      <div id="tab-guides" class="tab-panel">
+        <div class="guides-grid">
+          <div class="guide-card">
+            <span class="guide-icon">🗺️</span>
+            <h3>Intro to Language Documentation</h3>
+            <p>A beginner's guide to what language documentation means, how it's done in the field, and what makes a good linguistic record. Essential reading for new researchers.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+          <div class="guide-card">
+            <span class="guide-icon">🎙️</span>
+            <h3>Field Recording Techniques</h3>
+            <p>How to ethically and effectively record language data — from eliciting vocabulary to capturing natural speech and oral narratives. Includes equipment recommendations.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+          <div class="guide-card">
+            <span class="guide-icon">🔤</span>
+            <h3>Phonemic Analysis Basics</h3>
+            <p>An introduction to identifying and describing the sound system of an underdocumented language. Learn IPA, minimal pairs, and how to write phoneme inventories.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+          <div class="guide-card">
+            <span class="guide-icon">📖</span>
+            <h3>Writing for LWI Publication</h3>
+            <p>Style and structure guidelines for student researchers writing documentation papers and articles with LWI. Includes citation format, ethical guidelines, and review process.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+          <div class="guide-card">
+            <span class="guide-icon">🤝</span>
+            <h3>Working with Native Communities</h3>
+            <p>Essential guidelines for ethical community engagement — obtaining informed consent, respecting cultural protocols, and ensuring communities retain ownership of their linguistic data.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+          <div class="guide-card">
+            <span class="guide-icon">💻</span>
+            <h3>Digital Language Tools</h3>
+            <p>An overview of software and platforms used in modern language documentation — from ELAN for annotation to FLEx for lexicography — and how to get started with each.</p>
+            <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Request Guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXTERNAL LINKS -->
+      <div id="tab-links" class="tab-panel">
+        <div class="links-list">
+          <a href="https://www.ethnologue.com" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>Ethnologue</h4>
+              <p>Comprehensive database of the world's languages — status, location, speaker counts, and family classifications.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://endangeredlanguages.com" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>Endangered Languages Project</h4>
+              <p>Google's initiative cataloguing endangered languages worldwide with resources, audio samples, and documentation materials.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.sil.org" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>SIL International</h4>
+              <p>Leading organization in linguistic research and language development, with extensive documentation tools and publications.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://ailla.utexas.org" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>AILLA — Archive of Indigenous Languages of Latin America</h4>
+              <p>University of Texas archive storing and providing access to recordings and documentation of Latin American indigenous languages.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.linguisticsociety.org" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>Linguistic Society of America</h4>
+              <p>Professional society advancing the scientific study of language, with resources for students and researchers at all levels.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.firstvoices.com" target="_blank" class="link-item">
+            <div class="link-item-body">
+              <h4>FirstVoices</h4>
+              <p>Community-driven platform where indigenous communities in North America archive and share their languages, songs, and stories.</p>
+            </div>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Lost Worlds Institute</span>
+      <p>A youth-led non-profit preserving endangered languages and revitalizing extinct ones through scholarly documentation, research, and community.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="impact.html">Impact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank">Research Program</a></li>
+        <li><a href="https://forms.gle/gR66SaEhDUA8CdTc8" target="_blank">Magazine Program</a></li>
+        <li><a href="https://forms.gle/3pGccyWoJjhpX7Nr7" target="_blank">Leadership Roles</a></li>
+        <li><a href="https://www.lostworldsmag.com" target="_blank">LWI Magazine ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@lostworldsinstitute.org">contact@lostworldsinstitute.org</a></li>
+        <li><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lost Worlds Institute, LLC. All rights reserved.</span>
+    <div class="footer-social"><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

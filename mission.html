@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mission — Lost Worlds Institute</title>
+<link rel="stylesheet" href="css/style.css" />
+<style>
+.mission-hero {
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 70% 60% at 90% 20%, rgba(139,58,42,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 70% at 5% 80%, rgba(200,164,90,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #180d08 0%, #120f0b 100%);
+}
+
+/* MANIFESTO */
+.manifesto {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.manifesto-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.manifesto-num {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  min-width: 2rem;
+  padding-top: 0.4rem;
+}
+
+.manifesto-text {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  color: var(--parchment);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.manifesto-text em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* PILLARS */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 3rem;
+}
+
+.pillar {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background var(--transition);
+}
+.pillar:last-child { border-right: none; }
+.pillar:hover { background: rgba(200,164,90,0.04); }
+
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.pillar h3 {
+  color: var(--parchment);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.pillar p {
+  color: var(--ash);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* APPROACH */
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.approach-visual {
+  position: relative;
+  height: 400px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.approach-visual-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(200,164,90,0.08) 0%, transparent 70%);
+}
+
+.approach-glyph {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: rgba(200,164,90,0.12);
+  position: absolute;
+  user-select: none;
+}
+
+.approach-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.approach-center p {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.6;
+}
+
+/* TIMELINE */
+.timeline {
+  margin-top: 3rem;
+  position: relative;
+  padding-left: 3rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--gold), var(--border), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 3rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -3rem;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--gold);
+  background: var(--ink);
+  transform: rotate(45deg);
+}
+
+.timeline-phase {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item h3 {
+  color: var(--parchment);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item p {
+  color: var(--ash);
+  font-size: 0.9rem;
+}
+
+/* CALL TO ACTION */
+.mission-cta {
+  text-align: center;
+  padding: 6rem 3rem;
+  background: linear-gradient(135deg, rgba(139,58,42,0.1) 0%, rgba(45,74,53,0.08) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .pillars { grid-template-columns: 1fr; }
+  .pillar { border-right: none; border-bottom: 1px solid var(--border); }
+  .pillar:last-child { border-bottom: none; }
+  .approach-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .approach-visual { height: 250px; }
+  .mission-hero { padding: 0 1.5rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-symbol">LWI</div>
+    <span class="nav-logo-text">Lost Worlds Institute</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="mission.html" class="active">Mission</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="impact.html">Impact</a></li>
+    <li><a href="https://www.lostworldsmag.com" target="_blank" class="nav-magazine">Magazine ↗</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main class="page-main">
+
+  <section class="mission-hero">
+    <div class="mission-hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Why We Exist</p>
+      <h1>The Mission<br>That Drives<br><span style="color:var(--gold);">Everything</span></h1>
+      <p class="hero-desc">We exist to ensure that no language — no matter how few its speakers, how distant its homeland — disappears without a trace.</p>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <div class="section-wide" style="background:var(--dark-surface);border-top:1px solid var(--border);">
+    <div class="section">
+      <div class="section-divider"><span>Our Beliefs</span></div>
+      <h2 class="section-heading fade-up" style="text-align:center;max-width:600px;margin:0 auto 3rem;">What we stand for</h2>
+      <div class="manifesto">
+        <div class="manifesto-line fade-up">
+          <span class="manifesto-num">01</span>
+          <p class="manifesto-text">Every language is a <em>unique lens</em> on the human experience — encoding ways of thinking, feeling, and knowing that exist nowhere else on Earth.</p>
+        </div>
+        <div class="manifesto-line fade-up delay-1">
+          <span class="manifesto-num">02</span>
+          <p class="manifesto-text">When a language dies, a world is erased — its stories, its science, its names for colors and kinship and the stars. <em>This is irreversible.</em></p>
+        </div>
+        <div class="manifesto-line fade-up delay-2">
+          <span class="manifesto-num">03</span>
+          <p class="manifesto-text">Young people have the <em>energy, the urgency, and the moral clarity</em> to act — and with the right scholarly support, they can produce rigorous, lasting work.</p>
+        </div>
+        <div class="manifesto-line fade-up delay-3">
+          <span class="manifesto-num">04</span>
+          <p class="manifesto-text">Preservation without <em>community</em> is incomplete. We partner with native speakers and organizations, never working over them or without them.</p>
+        </div>
+        <div class="manifesto-line fade-up delay-4">
+          <span class="manifesto-num">05</span>
+          <p class="manifesto-text">Documentation is not the end. Where possible, we contribute to <em>revitalization</em> — helping extinct or near-extinct languages gain new speakers and new life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLARS -->
+  <div class="section-wide" style="background:var(--ink);">
+    <div class="section">
+      <div class="section-divider"><span>How We Work</span></div>
+      <h2 class="section-heading fade-up">Three Pillars of Preservation</h2>
+      <div class="pillars" style="margin-top:3rem;">
+        <div class="pillar fade-up">
+          <span class="pillar-icon">📜</span>
+          <h3>Documentation</h3>
+          <p>Building comprehensive records of each language — phonology, morphology, syntax, lexicons, oral traditions, and cultural context — so they survive even if their last speakers do not.</p>
+        </div>
+        <div class="pillar fade-up delay-1">
+          <span class="pillar-icon">🔬</span>
+          <h3>Research</h3>
+          <p>Producing scholarly-grade research on endangered language structure, history, and sociolinguistic context. Youth researchers publish alongside academic mentors, creating work that enters the permanent record.</p>
+        </div>
+        <div class="pillar fade-up delay-2">
+          <span class="pillar-icon">🌱</span>
+          <h3>Revitalization</h3>
+          <p>Where communities want it, helping rebuild speaker populations through educational tools, learning materials, and partnerships with native organizations committed to language renewal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROACH -->
+  <div class="section-wide" style="background:var(--dark-surface);border-top:1px solid var(--border);">
+    <div class="section">
+      <div class="section-divider"><span>Our Approach</span></div>
+      <div class="approach-grid">
+        <div class="approach-visual fade-in">
+          <div class="approach-visual-bg"></div>
+          <div class="approach-glyph" style="top:5%;left:5%;transform:rotate(-20deg);">𐤀</div>
+          <div class="approach-glyph" style="bottom:5%;right:5%;transform:rotate(15deg);font-size:5rem;">ꮃ</div>
+          <div class="approach-glyph" style="top:40%;right:10%;transform:rotate(8deg);font-size:4rem;color:rgba(200,164,90,0.08);">ш</div>
+          <div class="approach-center">
+            <p>Youth research.<br>Scholarly rigor.<br>Community consent.</p>
+          </div>
+        </div>
+        <div class="fade-up delay-1">
+          <h2 class="section-heading" style="margin-bottom:1.5rem;">Youth-Led, Scholar-Guided</h2>
+          <p style="color:var(--light-ash);margin-bottom:1.5rem;line-height:1.8;">Our model pairs high school and undergraduate researchers with expert linguists and academics. Students do the research — real, publishable work — under the mentorship of people who have spent careers in the field.</p>
+          <p style="color:var(--light-ash);margin-bottom:1.5rem;line-height:1.8;">This isn't a simulation. It isn't a club activity. It's an actual contribution to the permanent linguistic record, credited under real authors, distributed to the academic community and the public.</p>
+          <p style="color:var(--light-ash);line-height:1.8;">We also operate with the full partnership of native communities. We never document a language over the objections of its speakers. We work with them, not above them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="section-wide" style="background:var(--ink);">
+    <div class="section">
+      <div class="section-divider"><span>Roadmap</span></div>
+      <div class="approach-grid" style="gap:4rem;">
+        <div class="fade-up">
+          <h2 class="section-heading" style="margin-bottom:2rem;">Long-Term Vision</h2>
+          <p style="color:var(--light-ash);line-height:1.8;margin-bottom:2rem;">LWI is built for permanence. Our goal is not just to document 12 languages — it's to build a model for youth-led language preservation that can be replicated, scaled, and sustained for generations.</p>
+          <a href="about.html" class="btn btn-ghost">Get Involved</a>
+        </div>
+        <div class="fade-up delay-1">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-phase">Phase 1 — Now</div>
+              <h3>12 Languages Initiative</h3>
+              <p>Full documentation and initial revitalization work on 12 endangered and extinct languages across 6 continents.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-phase">Phase 2 — Near Term</div>
+              <h3>Conference & Community</h3>
+              <p>Host our flagship linguistics conference, establish formal partnerships with universities and indigenous organizations.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-phase">Phase 3 — Future</div>
+              <h3>Expand & Replicate</h3>
+              <p>Grow to additional languages, establish chapters at high schools, and publish a comprehensive methodology guide for youth-led language preservation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="mission-cta fade-up">
+    <p class="section-label">Take Action</p>
+    <h2 class="section-heading" style="margin-bottom:1.5rem;">The work doesn't wait.</h2>
+    <p class="section-body" style="margin:0 auto 2.5rem;">Every year, more languages fall silent. Join us before another world disappears.</p>
+    <div style="display:flex;gap:1.25rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-primary">Join as Researcher</a>
+      <a href="events.html" class="btn btn-ghost">Attend an Event</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Lost Worlds Institute</span>
+      <p>A youth-led non-profit preserving endangered languages and revitalizing extinct ones through scholarly documentation, research, and community.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="impact.html">Impact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank">Research Program</a></li>
+        <li><a href="https://forms.gle/gR66SaEhDUA8CdTc8" target="_blank">Magazine Program</a></li>
+        <li><a href="https://forms.gle/3pGccyWoJjhpX7Nr7" target="_blank">Leadership Roles</a></li>
+        <li><a href="https://www.lostworldsmag.com" target="_blank">LWI Magazine ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@lostworldsinstitute.org">contact@lostworldsinstitute.org</a></li>
+        <li><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lost Worlds Institute, LLC. All rights reserved.</span>
+    <div class="footer-social"><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
