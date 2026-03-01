@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Events — Lost Worlds Institute</title>
+<style>
+/* ===========================
+   LOST WORLDS INSTITUTE
+   Core Stylesheet
+   =========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Cinzel:wght@400;500;600&display=swap');
+
+:root {
+  --ink: #1a1510;
+  --parchment: #f5ede0;
+  --sand: #d4b896;
+  --clay: #9b6e4e;
+  --rust: #8b3a2a;
+  --forest: #2d4a35;
+  --ash: #6b6560;
+  --light-ash: #c8c0b8;
+  --cream: #faf6f0;
+  --gold: #c8a45a;
+  --white: #ffffff;
+  --dark-surface: #120f0b;
+  --card-bg: rgba(245,237,224,0.06);
+  --border: rgba(200,164,90,0.25);
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-text: 'Spectral', serif;
+
+  --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --nav-h: 72px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--parchment);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ========================
+   TYPOGRAPHY
+   ======================== */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+}
+
+h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.7rem); }
+
+p { font-family: var(--font-text); font-size: 1rem; font-weight: 400; }
+
+em { font-style: italic; color: var(--sand); }
+strong { font-weight: 600; color: var(--parchment); }
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--sand); }
+
+/* ========================
+   NAV
+   ======================== */
+
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  background: linear-gradient(180deg, rgba(26,21,16,0.97) 0%, rgba(26,21,16,0.0) 100%);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(200,164,90,0.08);
+  transition: background var(--transition);
+}
+
+.nav.scrolled {
+  background: rgba(18,15,11,0.96);
+  border-bottom-color: var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.nav-logo-symbol {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  transition: transform var(--transition);
+}
+
+.nav-logo:hover .nav-logo-symbol {
+  transform: rotate(10deg);
+}
+
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--parchment);
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light-ash);
+  transition: color var(--transition);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-magazine {
+  border: 1px solid var(--border) !important;
+  padding: 0.35rem 0.9rem !important;
+  border-radius: 2px;
+  color: var(--gold) !important;
+}
+.nav-magazine:hover {
+  background: rgba(200,164,90,0.1) !important;
+}
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--parchment);
+  transition: var(--transition);
+}
+
+/* ========================
+   MAIN WRAPPER
+   ======================== */
+.page-main {
+  padding-top: var(--nav-h);
+}
+
+/* ========================
+   HERO — shared base
+   ======================== */
+
+.hero {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #2d1e10 0%, #0e0a07 55%, #1a1510 100%);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(155,110,78,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(45,74,53,0.12) 0%, transparent 70%);
+}
+
+/* Decorative script characters in bg */
+.hero-glyphs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.06;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  color: var(--sand);
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero-glyph {
+  position: absolute;
+  animation: glyphFloat 20s ease-in-out infinite alternate;
+}
+
+@keyframes glyphFloat {
+  from { transform: translateY(0) rotate(-3deg); opacity: 0.5; }
+  to   { transform: translateY(-20px) rotate(2deg); opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero h1 {
+  color: var(--parchment);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 span {
+  color: var(--gold);
+  display: block;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  color: var(--light-ash);
+  max-width: 55ch;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* ========================
+   BUTTONS
+   ======================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--ink);
+}
+.btn-primary:hover {
+  background: var(--sand);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--parchment);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ========================
+   DIVIDERS
+   ======================== */
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-divider span {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* ========================
+   SECTIONS
+   ======================== */
+
+.section {
+  padding: 6rem 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-wide {
+  padding: 6rem 3rem;
+}
+
+.section-dark {
+  background: var(--dark-surface);
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.section-heading {
+  color: var(--parchment);
+  margin-bottom: 1.5rem;
+}
+
+.section-body {
+  color: var(--light-ash);
+  font-size: 1.05rem;
+  max-width: 65ch;
+  line-height: 1.8;
+}
+
+/* ========================
+   CARDS
+   ======================== */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.card-num {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.card h3 { color: var(--parchment); margin-bottom: 0.75rem; }
+.card p { color: var(--ash); font-size: 0.95rem; }
+
+/* ========================
+   FOOTER
+   ======================== */
+
+footer {
+  background: var(--dark-surface);
+  border-top: 1px solid var(--border);
+  padding: 4rem 3rem 2.5rem;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.footer-brand .footer-logo {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.footer-brand p {
+  font-size: 0.9rem;
+  color: var(--ash);
+  max-width: 28ch;
+  line-height: 1.7;
+}
+
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  margin-bottom: 1.25rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-col a {
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  color: var(--ash);
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--gold); }
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(200,164,90,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.footer-social a {
+  color: var(--ash);
+  transition: color var(--transition);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+.footer-social a:hover { color: var(--gold); }
+
+/* ========================
+   ANIMATIONS
+   ======================== */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.fade-in.visible { opacity: 1; }
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ========================
+   SCROLL LINE decoration
+   ======================== */
+.ornament {
+  text-align: center;
+  color: var(--border);
+  font-size: 1.2rem;
+  letter-spacing: 0.5rem;
+  margin: 3rem 0;
+  user-select: none;
+}
+
+/* ========================
+   FORM STYLES
+   ======================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light-ash);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  background: rgba(245,237,224,0.04);
+  border: 1px solid var(--border);
+  padding: 0.85rem 1.1rem;
+  color: var(--parchment);
+  font-family: var(--font-text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition);
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--gold);
+}
+
+.form-textarea { resize: vertical; min-height: 140px; }
+
+/* ========================
+   TAG / BADGE
+   ======================== */
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ========================
+   MOBILE NAV
+   ======================== */
+
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    inset: 0 0 0 40%;
+    background: rgba(18,15,11,0.98);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 6rem 2.5rem;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform var(--transition);
+    border-left: 1px solid var(--border);
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-hamburger { display: flex; }
+
+  .nav-hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero { padding: 0 1.5rem 4rem; }
+  .section { padding: 4rem 1.5rem; }
+  .section-wide { padding: 4rem 1.5rem; }
+  footer { padding: 3rem 1.5rem 2rem; }
+  .nav { padding: 0 1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+<style>
+.events-hero {
+  min-height: 55vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 3rem 5rem;
+  position: relative;
+  background: linear-gradient(150deg, #101b12 0%, #120f0b 60%, #1a1510 100%);
+  overflow: hidden;
+}
+
+.events-hero-glow {
+  position: absolute;
+  left: 40%;
+  top: 10%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(45,74,53,0.25) 0%, transparent 70%);
+}
+
+/* EVENT CARDS */
+.event-card {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: 2.5rem;
+  align-items: start;
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+  background: rgba(245,237,224,0.02);
+  transition: border-color var(--transition), background var(--transition);
+  margin-bottom: 1px;
+}
+
+.event-card:hover {
+  border-color: var(--gold);
+  background: rgba(200,164,90,0.04);
+}
+
+.event-date-block {
+  text-align: center;
+  border-right: 1px solid var(--border);
+  padding-right: 2rem;
+}
+
+.event-month {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.event-day {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--parchment);
+  margin: 0.2rem 0;
+}
+
+.event-year {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+}
+
+.event-body h3 {
+  color: var(--parchment);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+.event-body p { color: var(--ash); font-size: 0.95rem; margin-bottom: 1rem; }
+
+.event-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.event-meta-item {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--light-ash);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.event-meta-item::before {
+  content: '◆';
+  font-size: 0.4rem;
+  color: var(--gold);
+}
+
+.event-action { align-self: center; }
+
+/* CONFERENCE SPOTLIGHT */
+.conference-spotlight {
+  background: linear-gradient(135deg, rgba(155,110,78,0.14) 0%, rgba(45,74,53,0.10) 100%);
+  border: 1px solid var(--border);
+  padding: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.conference-spotlight::before {
+  content: 'CONFERENCE';
+  position: absolute;
+  right: -2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-display);
+  font-size: 5rem;
+  letter-spacing: 0.3em;
+  color: rgba(200,164,90,0.06);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.conference-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.conference-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.conf-detail {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.conf-detail-label {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  min-width: 80px;
+  padding-top: 0.15rem;
+}
+
+.conf-detail-val {
+  font-family: var(--font-text);
+  font-size: 0.95rem;
+  color: var(--parchment);
+}
+
+/* FORUM CARDS */
+.forum-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.forum-card {
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  background: rgba(245,237,224,0.02);
+  transition: border-color var(--transition);
+}
+.forum-card:hover { border-color: var(--gold); }
+
+.forum-card h3 { color: var(--parchment); margin-bottom: 0.5rem; font-size: 1rem; }
+.forum-card p { color: var(--ash); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.forum-speaker {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.speaker-name {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--parchment);
+}
+
+.speaker-title {
+  font-size: 0.8rem;
+  color: var(--ash);
+  font-family: var(--font-text);
+}
+
+/* ARCHIVE */
+.archive-list {
+  margin-top: 2rem;
+}
+
+.archive-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(200,164,90,0.1);
+  align-items: center;
+}
+
+.archive-item .archive-date {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+  text-transform: uppercase;
+}
+
+.archive-item h4 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--light-ash);
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .event-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .event-date-block {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding-right: 0;
+    padding-bottom: 1rem;
+    text-align: left;
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+  .conference-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .conference-spotlight { padding: 2.5rem 1.5rem; }
+  .forum-grid { grid-template-columns: 1fr; }
+  .events-hero { padding: 0 1.5rem 4rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-symbol">LWI</div>
+    <span class="nav-logo-text">Lost Worlds Institute</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="events.html" class="active">Events</a></li>
+    <li><a href="mission.html">Mission</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="impact.html">Impact</a></li>
+    <li><a href="https://www.lostworldsmag.com" target="_blank" class="nav-magazine">Magazine ↗</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main class="page-main">
+
+  <section class="events-hero">
+    <div class="events-hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Gatherings & Programs</p>
+      <h1>Events &<br><span style="color:var(--gold);">Forums</span></h1>
+      <p class="hero-desc">From intimate student–scholar forums to our landmark conference on linguistics and language preservation — join us in person and online.</p>
+    </div>
+  </section>
+
+  <!-- UPCOMING CONFERENCE -->
+  <div class="section-wide" style="background:var(--ink);padding:5rem 3rem;">
+    <div class="section" style="padding:0;">
+      <div class="section-divider"><span>Flagship Event</span></div>
+      <div class="conference-spotlight fade-up">
+        <div class="conference-inner">
+          <div>
+            <p class="section-label">Upcoming</p>
+            <h2 class="section-heading" style="margin-bottom:1.5rem;">LWI Linguistics & Language Preservation Conference</h2>
+            <p style="color:var(--ash);font-size:1rem;margin-bottom:2rem;line-height:1.8;">Our flagship conference brings together youth researchers, field linguists, indigenous community representatives, and the public to discuss the urgent challenge of endangered language preservation — and what we can do about it.</p>
+            <p style="color:var(--light-ash);font-size:0.9rem;margin-bottom:2rem;">Help make this conference happen — donations fund venue, speakers, and scholarships for student attendees from underserved communities.</p>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+              <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-primary">Register Interest</a>
+              <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-ghost">Donate / Sponsor</a>
+            </div>
+          </div>
+          <div class="conference-details">
+            <div class="conf-detail">
+              <span class="conf-detail-label">Format</span>
+              <span class="conf-detail-val">Hybrid — In Person & Virtual</span>
+            </div>
+            <div class="conf-detail">
+              <span class="conf-detail-label">Topics</span>
+              <span class="conf-detail-val">Linguistics, Endangered Languages, Language Technology, Indigenous Culture, Revitalization</span>
+            </div>
+            <div class="conf-detail">
+              <span class="conf-detail-label">Who</span>
+              <span class="conf-detail-val">Students, Scholars, Native Communities, Enthusiasts</span>
+            </div>
+            <div class="conf-detail">
+              <span class="conf-detail-label">Updates</span>
+              <span class="conf-detail-val"><a href="mailto:contact@lostworldsinstitute.org">contact@lostworldsinstitute.org</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STUDENT SCHOLAR FORUMS -->
+  <div class="section-wide" style="background:var(--dark-surface);border-top:1px solid var(--border);">
+    <div class="section">
+      <div class="section-divider"><span>Regular Programs</span></div>
+      <h2 class="section-heading fade-up">Students × Scholar Forums</h2>
+      <p class="section-body fade-up delay-1">Our recurring forums connect high school students directly with field experts. Each session dives into a specific language, its morphology, phonetics, cultural context, and preservation status.</p>
+      <div class="forum-grid">
+        <div class="forum-card fade-up">
+          <div class="tag" style="margin-bottom:1rem;">Forum Series</div>
+          <h3>Language Deep Dives</h3>
+          <p>90-minute sessions exploring the linguistic structure and cultural significance of one of our 12 focus languages. Open Q&A with guest scholars.</p>
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Register</a>
+        </div>
+        <div class="forum-card fade-up delay-1">
+          <div class="tag" style="margin-bottom:1rem;">Workshop</div>
+          <h3>Documentation Methodology</h3>
+          <p>Hands-on workshops teaching students how to document languages — field recording techniques, transcription, phonemic analysis, and how to work with native speakers.</p>
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Register</a>
+        </div>
+        <div class="forum-card fade-up delay-2">
+          <div class="tag" style="margin-bottom:1rem;">Panel</div>
+          <h3>Revitalization Case Studies</h3>
+          <p>Panel discussions featuring representatives from language revitalization success stories — including Manx and Wampanoag — sharing what works and what doesn't.</p>
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Register</a>
+        </div>
+        <div class="forum-card fade-up delay-3">
+          <div class="tag" style="margin-bottom:1rem;">Research</div>
+          <h3>Publish with LWI</h3>
+          <p>Structured sessions guiding student researchers through the process of writing and publishing linguistic documentation papers with LWI and academic partner oversight.</p>
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Join Program</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPCOMING EVENTS LIST -->
+  <div class="section-wide" style="background:var(--ink);">
+    <div class="section">
+      <div class="section-divider"><span>Schedule</span></div>
+      <h2 class="section-heading fade-up">Upcoming Events</h2>
+      <p class="section-body fade-up delay-1" style="margin-bottom:3rem;">Stay connected on Instagram and via our newsletter for the latest event dates and registrations.</p>
+
+      <div class="event-card fade-up">
+        <div class="event-date-block">
+          <div class="event-month">TBD</div>
+          <div class="event-day">—</div>
+          <div class="event-year">2025</div>
+        </div>
+        <div class="event-body">
+          <div class="tag" style="margin-bottom:0.75rem;">Flagship</div>
+          <h3>LWI Language Preservation Conference</h3>
+          <p>Our inaugural conference on linguistics, endangered languages, and the future of preservation. Featuring scholars, native community voices, and LWI researchers.</p>
+          <div class="event-meta">
+            <span class="event-meta-item">Hybrid Format</span>
+            <span class="event-meta-item">All Welcome</span>
+            <span class="event-meta-item">Date TBA</span>
+          </div>
+        </div>
+        <div class="event-action">
+          <a href="mailto:contact@lostworldsinstitute.org" class="btn btn-primary">Notify Me</a>
+        </div>
+      </div>
+
+      <div class="event-card fade-up delay-1">
+        <div class="event-date-block">
+          <div class="event-month">Ongoing</div>
+          <div class="event-day">★</div>
+          <div class="event-year">2025</div>
+        </div>
+        <div class="event-body">
+          <div class="tag" style="margin-bottom:0.75rem;">Forum Series</div>
+          <h3>Students × Scholars Forum Series</h3>
+          <p>Regular online sessions pairing high school students with expert linguists. Each forum focuses on one language — its sounds, grammar, culture, and preservation status.</p>
+          <div class="event-meta">
+            <span class="event-meta-item">Online</span>
+            <span class="event-meta-item">High School Students</span>
+            <span class="event-meta-item">Monthly</span>
+          </div>
+        </div>
+        <div class="event-action">
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Register</a>
+        </div>
+      </div>
+
+      <div class="event-card fade-up delay-2">
+        <div class="event-date-block">
+          <div class="event-month">Ongoing</div>
+          <div class="event-day">✦</div>
+          <div class="event-year">2025</div>
+        </div>
+        <div class="event-body">
+          <div class="tag" style="margin-bottom:0.75rem;">Program</div>
+          <h3>Research & Documentation Cohort</h3>
+          <p>Join an ongoing cohort of student researchers documenting one of the 12 LWI languages. Produce publishable research under scholar mentorship.</p>
+          <div class="event-meta">
+            <span class="event-meta-item">Remote</span>
+            <span class="event-meta-item">High School / Undergrad</span>
+            <span class="event-meta-item">Rolling Admission</span>
+          </div>
+        </div>
+        <div class="event-action">
+          <a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank" class="btn btn-ghost">Apply</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="section-wide" style="background:var(--dark-surface);border-top:1px solid var(--border);padding:5rem 3rem;">
+    <div class="section" style="padding:0;text-align:center;">
+      <p class="section-label">Never Miss an Event</p>
+      <h2 class="section-heading fade-up">Stay Updated</h2>
+      <p class="section-body fade-up delay-1" style="margin:0 auto 2rem;">Join our mailing list for event announcements, registration links, and news from LWI.</p>
+      <form class="newsletter-form" style="max-width:480px;margin:0 auto;">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">Lost Worlds Institute</span>
+      <p>A youth-led non-profit preserving endangered languages and revitalizing extinct ones through scholarly documentation, research, and community.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="impact.html">Impact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="https://forms.gle/FsWHHQZ4N7CzUd9U7" target="_blank">Research Program</a></li>
+        <li><a href="https://forms.gle/gR66SaEhDUA8CdTc8" target="_blank">Magazine Program</a></li>
+        <li><a href="https://forms.gle/3pGccyWoJjhpX7Nr7" target="_blank">Leadership Roles</a></li>
+        <li><a href="https://www.lostworldsmag.com" target="_blank">LWI Magazine ↗</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@lostworldsinstitute.org">contact@lostworldsinstitute.org</a></li>
+        <li><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lost Worlds Institute, LLC. All rights reserved.</span>
+    <div class="footer-social"><a href="https://www.instagram.com/lostworldsinstitute/" target="_blank">Instagram</a></div>
+  </div>
+</footer>
+
+<script>
+// ==============================
+// LOST WORLDS INSTITUTE — main.js
+// ==============================
+
+(function () {
+  'use strict';
+
+  // NAV SCROLL
+  const nav = document.querySelector('.nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // HAMBURGER MENU
+  const hamburger = document.querySelector('.nav-hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    // Close on link click
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+  }
+
+  // ACTIVE NAV LINK
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/index';
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    const href = a.getAttribute('href').replace(/\/$/, '') || '/index';
+    if (href === currentPath || (currentPath === '' && href === '/index')) {
+      a.classList.add('active');
+    }
+  });
+
+  // INTERSECTION OBSERVER — fade animations
+  const animEls = document.querySelectorAll('.fade-up, .fade-in');
+  if (animEls.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    animEls.forEach(el => observer.observe(el));
+  }
+
+  // COUNTER ANIMATION
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    const ease = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    function step(now) {
+      const t = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(ease(t) * target) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll('[data-count]');
+  if (counters.length) {
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(e.target);
+          counterObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObs.observe(c));
+  }
+
+  // FAQ ACCORDION
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    if (!q || !a) return;
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // TAB SWITCHER (for Resources page)
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = document.getElementById(target);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // NEWSLETTER FORM
+  document.querySelectorAll('.newsletter-form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const input = form.querySelector('input[type="email"]');
+      if (!input || !input.value) return;
+      form.innerHTML = `<p style="color:var(--gold);font-family:var(--font-display);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;">✦ Thank you for joining us</p>`;
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
